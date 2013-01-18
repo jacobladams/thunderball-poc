@@ -16,11 +16,11 @@ namespace ThunderBallPoc.Controllers
 
 			//todo: move into global.asax.cs
 			List<Meeting> meetings;
-			using (var documentStore = new DocumentStore(){ConnectionStringName = "RavenDB"})
+			using (var documentStore = new DocumentStore(){ConnectionStringName = "RavenDB"}.Initialize())
 			{
 				using (var session = documentStore.OpenSession())
 				{
-					meetings = session.Load<Models.Meeting>().ToList();
+					meetings = session.Query<Models.Meeting>().Take(20).ToList();
 				}
 			}
 
